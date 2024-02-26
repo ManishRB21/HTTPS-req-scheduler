@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTTP Request Scheduler</title>
+</head>
+<body>
+  <label for="endpoint">HTTP Endpoint:</label>
+  <input type="text" id="endpoint" placeholder="Enter HTTP endpoint"><br>
+
+  <label for="time">Delay (seconds):</label>
+  <input type="number" id="time" placeholder="Enter delay in seconds"><br>
+
+  <button onclick="scheduleRequest()">Schedule Request</button>
+
+  <p id="status"></p>
+
+  <script>
+    function scheduleRequest() {
+      var endpoint = document.getElementById('endpoint').value;
+      var time = parseInt(document.getElementById('time').value);
+
+      fetch('http://localhost:4000/schedule', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ endpoint, time })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('status').innerText = data.message;
+      })
+      .catch(error => {
+        document.getElementById('status').innerText = "Error scheduling request: " + error;
+      });
+    }
+  </script>
+</body>
+</html>
