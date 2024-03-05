@@ -15,7 +15,7 @@
   <button onclick="scheduleRequest()">Schedule Request</button>
 
   <p id="status"></p>
-
+  <p id="jsonData"></p>
   <script>
     function scheduleRequest() {
       var endpoint = document.getElementById('endpoint').value;
@@ -31,6 +31,7 @@
       .then(response => response.json())
       .then(data => {
         document.getElementById('status').innerText = data.message;
+        document.getElementById('jsonData').innerText = JSON.stringify(data.jsonData);
       })
       .catch(error => {
         document.getElementById('status').innerText = "Error scheduling request: " + error;
