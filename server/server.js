@@ -30,6 +30,7 @@ setTimeout(() => {
         try {
           const jsonData = JSON.parse(data);
           console.log('Received JSON response:', jsonData);
+          res.json({jsonData });
         } catch (error) {
           console.error('Error parsing JSON:', error);
         }
